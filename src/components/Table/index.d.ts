@@ -48,6 +48,10 @@ export class TableStruct<T>
   getColumnsData(): ColumnData[] {
     return this.columns;
   }
+
+  getRowsCount(): number {
+    return this.rowsData.length;
+  }
   
   getHeaderName(): string {
     return this.headerName;

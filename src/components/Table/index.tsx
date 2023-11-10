@@ -10,10 +10,10 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
   {
     return (
       <React.Fragment>
-        {/* {cell.data} */}
         {cell.actions ? cell.actions && cell.actions.map((action:Action, index:number) => 
         {
-          switch (action.type) {
+          switch (action.type)
+          {
             case 'link':
               return <a href={action.content} key={index}>{cell.data}</a>;
             case 'button':
@@ -21,13 +21,30 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
             default:
               return cell.data;
           }
-        }) : cell.data}
+        }) 
+        : cell.data
+        }
       </React.Fragment>
     );
   };
 
+  const tableData = table_data.getRowsData();
+
+
   const [highlightedRows, setHighlightedRows] = useState(new Set<number>());
   const [searchText, setSearchText] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage, setUsersPerPage] = useState(10);
+  const [totalUsers, setTotalUsers] = useState(table_data.getRowsCount());
+
+  // 计算当前页显示的数据
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = tableData.slice(indexOfFirstUser, indexOfLastUser);
+
+  // 处理分页
+  const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
   const firstRowRef = useRef<HTMLTableRowElement>(null);
 
   // 处理搜索文本变化
@@ -83,6 +100,11 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
       console.log('length is:', highlightedRows.size)
     }
   }, [highlightedRows]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setTotalUsers(table_data.getRowsCount());
+  }, [searchText, table_data]);
   
   return (
     <main className={styles['pretty-table']}>
@@ -104,7 +126,7 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
             </tr>
           </thead>
           <tbody>
-            {table_data.getRowsData().map((row, rowIndex) => (
+            {currentUsers.map((row, rowIndex) => (
               <tr key={rowIndex} ref={rowIndex === 0 ? firstRowRef : null}>
                 {row.map((cell) => 
                 (
@@ -120,6 +142,37 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
           </tbody>
         </table>
       </section>
+       <footer className={styles['pretty-table__footer']}>
+        <div className={styles['pretty-table__pagination']}>
+        <div className={styles['pretty-table__pagination__info']}>
+          Page {currentPage} of {Math.ceil(totalUsers / usersPerPage)}
+        </div>
+        <div className={styles['pretty-table__pagination__controls']}>
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={styles['pretty-table__pagination__controls__button']}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === Math.ceil(totalUsers / usersPerPage)}
+            className={styles['pretty-table__pagination__controls__button']}
+          >
+            Next
+          </button>
+          {/* 输入跳转页数 */}
+          <input
+            type="number"
+            className={styles['pretty-table__pagination__controls__input']}
+            value={currentPage}
+            onChange={(e) => paginate(Number(e.target.value))}
+            
+          />
+        </div>
+      </div>
+        </footer>
     </main>
   );
 };

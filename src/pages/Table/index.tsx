@@ -50,7 +50,7 @@ const UserList: React.FC = () =>
             ] },
         ],
         [
-          { key: 'id', data: '001' },
+          { key: 'id', data: '002' },
           { key: 'username', data: 'Lisa', actions: [
             { type: 'link', content: 'Send Message', },
           ] },
@@ -62,7 +62,7 @@ const UserList: React.FC = () =>
               { type: 'button', content: 'Send Message', onClick: sendMessage },
             ] },
         ],[
-          { key: 'id', data: '001' },
+          { key: 'id', data: '003' },
           { key: 'username', data: 'Lisa', actions: [
             { type: 'link', content: 'Send Message', },
           ] },
@@ -74,19 +74,7 @@ const UserList: React.FC = () =>
               { type: 'button', content: 'Send Message', onClick: sendMessage },
             ] },
         ],[
-          { key: 'id', data: '001' },
-          { key: 'username', data: 'Lisa', actions: [
-            { type: 'link', content: 'Send Message', },
-          ] },
-          { key: 'location', data: 'Korea' },
-          { key: 'lastContactDate', data: '2023-5-14' },
-          { key: 'action', data: 'Send Message', 
-            actions: [
-              { type: 'button', content: 'Send Message', onClick: sendMessage },
-              { type: 'button', content: 'Send Message', onClick: sendMessage },
-            ] },
-        ],[
-          { key: 'id', data: '001' },
+          { key: 'id', data: '003' },
           { key: 'username', data: 'Lisa', actions: [
             { type: 'link', content: 'Send Message', },
           ] },
@@ -98,6 +86,98 @@ const UserList: React.FC = () =>
               { type: 'button', content: 'Send Message', onClick: sendMessage },
             ] },
         ],
+        [
+          { key: 'id', data: '004' },
+          { key: 'username', data: 'Lisa', actions: [
+            { type: 'link', content: 'Send Message', },
+          ] },
+          { key: 'location', data: 'Korea' },
+          { key: 'lastContactDate', data: '2023-5-14' },
+          { key: 'action', data: 'Send Message', 
+            actions: [
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+            ] },
+        ],
+        [
+          { key: 'id', data: '005' },
+          { key: 'username', data: 'Lisa', actions: [
+            { type: 'link', content: 'Send Message', },
+          ] },
+          { key: 'location', data: 'Korea' },
+          { key: 'lastContactDate', data: '2023-5-14' },
+          { key: 'action', data: 'Send Message', 
+            actions: [
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+            ] },
+        ],
+        [
+          { key: 'id', data: '006' },
+          { key: 'username', data: 'Lisa', actions: [
+            { type: 'link', content: 'Send Message', },
+          ] },
+          { key: 'location', data: 'Korea' },
+          { key: 'lastContactDate', data: '2023-5-14' },
+          { key: 'action', data: 'Send Message', 
+            actions: [
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+            ] },
+        ],
+        [
+          { key: 'id', data: '007' },
+          { key: 'username', data: 'Lisa', actions: [
+            { type: 'link', content: 'Send Message', },
+          ] },
+          { key: 'location', data: 'Korea' },
+          { key: 'lastContactDate', data: '2023-5-14' },
+          { key: 'action', data: 'Send Message', 
+            actions: [
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+            ] },
+        ],
+        [
+          { key: 'id', data: '008' },
+          { key: 'username', data: 'Lisa', actions: [
+            { type: 'link', content: 'Send Message', },
+          ] },
+          { key: 'location', data: 'Korea' },
+          { key: 'lastContactDate', data: '2023-5-14' },
+          { key: 'action', data: 'Send Message', 
+            actions: [
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+            ] },
+        ],
+        [
+          { key: 'id', data: '009' },
+          { key: 'username', data: 'Lisa', actions: [
+            { type: 'link', content: 'Send Message', },
+          ] },
+          { key: 'location', data: 'Korea' },
+          { key: 'lastContactDate', data: '2023-5-14' },
+          { key: 'action', data: 'Send Message', 
+            actions: [
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+            ] },
+        ],
+        [
+          { key: 'id', data: '010' },
+          { key: 'username', data: 'Lisa', actions: [
+            { type: 'link', content: 'Send Message', },
+          ] },
+          { key: 'location', data: 'Korea' },
+          { key: 'lastContactDate', data: '2023-5-14' },
+          { key: 'action', data: 'Send Message', 
+            actions: [
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+              { type: 'button', content: 'Send Message', onClick: sendMessage },
+            ] },
+        ],
+
       ];
       const userTable = new TableStruct(rowData, columns, "User Table");
 
