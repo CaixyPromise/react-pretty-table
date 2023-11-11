@@ -383,8 +383,38 @@
 				border: 1px solid #ccc;
 			}
 		}
+		
 	}
-
+	.pretty-table__pagination__select {
+		margin-left: 10px;
+		padding: 5px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+		cursor: pointer; // 添加鼠标指针样式
+	  
+		&:hover {
+		  border: 1px solid #0842a0;
+		  box-shadow: 0 0 5px rgba(0, 66, 160, 0.3); // 添加轻微的阴影效果
+		}
+	  
+		&:focus {
+		  outline: none; // 移除默认的焦点轮廓
+		  border-color: #0842a0;
+		  background-color: #f0f0f0; // 轻微改变背景颜色
+		}
+	  
+		&:disabled {
+		  background-color: #e0e0e0;
+		  color: #a0a0a0;
+		}
+	  
+		option {
+		  font-size: 14px; // 调整选项字体大小
+		  color: #333; // 调整选项字体颜色
+		}
+	  }
+	  
+	  
 	.pretty-table__footer {
 		width: 100%;
 		padding: 10px 10px; // 根据需要调整内边距

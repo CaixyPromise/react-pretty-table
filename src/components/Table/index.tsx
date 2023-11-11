@@ -39,6 +39,15 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
   const [totalUsers, setTotalUsers] = useState(table_data.getRowsCount());
   const maxPageSize = Math.ceil(totalUsers / usersPerPage);
 
+  // 每页显示的数据量选项
+  const perPageOptions = [5, 10, 20, 50];
+
+  // 处理每页显示数据量变化
+  const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setUsersPerPage(Number(event.target.value));
+    setCurrentPage(1); // 重置为第一页
+  };
+
   // 计算当前页显示的数据
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -160,6 +169,16 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
         <div className={styles['pretty-table__pagination']}>
         <div className={styles['pretty-table__pagination__info']}>
           Page {currentPage} of {maxPageSize}
+          <select 
+              onChange={handlePerPageChange}
+              className={styles['pretty-table__pagination__select']}
+            >
+              {perPageOptions.map(option => (
+                <option key={option} value={option}>
+                  {option} / page
+                </option>
+              ))}
+            </select>
         </div>
         <div className={styles['pretty-table__pagination__controls']}>
           <button
