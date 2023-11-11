@@ -37,6 +37,7 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(10);
   const [totalUsers, setTotalUsers] = useState(table_data.getRowsCount());
+  const maxPageSize = Math.ceil(totalUsers / usersPerPage);
 
   // 计算当前页显示的数据
   const indexOfLastUser = currentPage * usersPerPage;
@@ -44,7 +45,20 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
   const currentUsers = tableData.slice(indexOfFirstUser, indexOfLastUser);
 
   // 处理分页
-  const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber:number) => {
+    if (pageNumber > maxPageSize)
+    {
+      setCurrentPage(maxPageSize);
+      return;
+    }
+    if (pageNumber < 1)
+    {
+      setCurrentPage(1);
+      return;
+    }
+    setCurrentPage(pageNumber)
+
+  };
   const firstRowRef = useRef<HTMLTableRowElement>(null);
 
   // 处理搜索文本变化
@@ -145,7 +159,7 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
        <footer className={styles['pretty-table__footer']}>
         <div className={styles['pretty-table__pagination']}>
         <div className={styles['pretty-table__pagination__info']}>
-          Page {currentPage} of {Math.ceil(totalUsers / usersPerPage)}
+          Page {currentPage} of {maxPageSize}
         </div>
         <div className={styles['pretty-table__pagination__controls']}>
           <button
@@ -153,15 +167,9 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
             disabled={currentPage === 1}
             className={styles['pretty-table__pagination__controls__button']}
           >
-            Previous
+            上一页
           </button>
-          <button
-            onClick={() => paginate(currentPage + 1)}
-            disabled={currentPage === Math.ceil(totalUsers / usersPerPage)}
-            className={styles['pretty-table__pagination__controls__button']}
-          >
-            Next
-          </button>
+          
           {/* 输入跳转页数 */}
           <input
             type="number"
@@ -170,6 +178,13 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
             onChange={(e) => paginate(Number(e.target.value))}
             
           />
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === Math.ceil(totalUsers / usersPerPage)}
+            className={styles['pretty-table__pagination__controls__button']}
+          >
+            下一页
+          </button>
         </div>
       </div>
         </footer>
