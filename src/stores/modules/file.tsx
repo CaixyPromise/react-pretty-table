@@ -2,52 +2,51 @@ import { Reducer, createSlice } from "@reduxjs/toolkit";
 // import { request } from "@/utils/requests";
 import { getPublicFileInfo } from "@/apis/modules/file/files";
 
-const publicFile = createSlice(
+const table = createSlice(
 {
-    name : "publicFile",
+    name: "table",
 
-    initialState: 
+    initialState:
     {
-        files: [],
-        publicFileLoading: false,
-        publicFileError: null,
+        data: [],
+        currentPage: 1, // 当前页码
+        pageSize: 10, // 每页显示的数据量
+        totalItems: 0, // 数据总量
+        isLoading: false,
+        tableError: null,
     },
 
-    reducers: 
+    reducers:
     {
-        set_FileList(state, action)
+        set_data(state, action) 
         {
-            state.files = action.payload;
+            state.data = action.payload;
         }
+
+        
     }
 })
 
-const {set_FileList} = publicFile.actions;
+const { set_data: set_FileList } = table.actions;
 
-const fetchFileList = () => 
+const fetchDataList = () => 
 {
     return async (dispatch: any) => 
     {
-        try 
-        {
+        try {
             dispatch(set_FileList(await getPublicFileInfo()));
         }
-        catch (error) 
-        {
-            console.log('something wrong when fetch file info from server');
+        catch (error) {
+            console.log('something wrong when fetch data from server');
             return Promise.reject(error);
         }
-    }   
+    }
 }
 
-const publicReducer : Reducer<{
-    files: never[];
-    publicFileLoading: boolean;
-    publicFileError: null;
-}> = publicFile.reducer;
+const tableReducer = table.reducer;
 
-export default publicReducer;
+export default tableReducer;
 
 export {
-    fetchFileList
+    fetchDataList
 }

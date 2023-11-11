@@ -29,11 +29,8 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
   };
 
   const tableData = table_data.getRowsData();
-
-
   const [highlightedRows, setHighlightedRows] = useState(new Set<number>());
   const [searchText, setSearchText] = useState("");
-
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(10);
   const [totalUsers, setTotalUsers] = useState(table_data.getRowsCount());
@@ -43,7 +40,8 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
   const perPageOptions = [5, 10, 20, 50];
 
   // 处理每页显示数据量变化
-  const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => 
+  {
     setUsersPerPage(Number(event.target.value));
     setCurrentPage(1); // 重置为第一页
   };
@@ -54,7 +52,8 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
   const currentUsers = tableData.slice(indexOfFirstUser, indexOfLastUser);
 
   // 处理分页
-  const paginate = (pageNumber:number) => {
+  const paginate = (pageNumber:number) => 
+  {
     if (pageNumber > maxPageSize)
     {
       setCurrentPage(maxPageSize);
