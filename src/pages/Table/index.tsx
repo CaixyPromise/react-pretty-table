@@ -4,26 +4,35 @@ import Loadings from "@/components/Loading";
 import { PrettyTable } from '@/components/Table';
 import { TableStruct, RowData, searchColumnsType, 
   GenericEventHandler, CustomCallbackFunction } from '@/components/Table/index.d';
-
+import { useDispatch, useSelector } from 'react-redux'
+import {fetchDataList} from "@/stores/modules/file"
 // 用户数据示例
 
 const UserList: React.FC = () => 
 {
   const [isLoading, setIsLoading] = useState(true); // 添加一个状态来追踪加载状态
+  const dataList = useSelector((state: any) => state.table.data)
+  const dispatch = useDispatch();
 
-  // 假设数据加载函数（此处需要根据您的实际情况进行调整）
-  const loadData = () => {
-    setIsLoading(true); // 开始加载数据时，设置为 true
-    // 模拟数据加载
-    setTimeout(() => {
-      // ... 这里是数据加载逻辑
-      setIsLoading(false); // 数据加载完成，设置为 false
-    }, 2000);
-  };
-
+  // 数据加载函数
   useEffect(() => {
-    loadData(); // 在组件挂载时加载数据
-  }, []);
+    const loadData = async () => {
+      setIsLoading(true);
+      console.log("get data");
+      try {
+        await dispatch<any>(fetchDataList());
+      } 
+      catch (error) 
+      {
+        console.error('Error fetching data:', error);
+      }
+      console.log("get data end");
+      setIsLoading(false);
+    };
+
+    loadData();
+  }, [dispatch]);
+  
     const columns: ColumnData[] = [
         { label: 'ID', key: 'id' },
         { label: 'Username', key: 'username' },

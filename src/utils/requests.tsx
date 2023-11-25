@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 
 
 const request:AxiosInstance = axios.create({
-    baseURL: "/v1",
+    baseURL: "/",
     timeout: 5000
 })
 
@@ -13,6 +13,7 @@ request.interceptors.request.use(
         return config
     }, error =>
     {
+        console.log(error);
         return Promise.reject(error)
     }
 )

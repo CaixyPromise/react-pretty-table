@@ -65,7 +65,6 @@ const PrettyTable: React.FC<PrettyTableProps<any>> = ({ table_data, description,
       return;
     }
     setCurrentPage(pageNumber)
-
   };
   const firstRowRef = useRef<HTMLTableRowElement>(null);
 

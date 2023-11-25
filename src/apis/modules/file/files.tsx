@@ -4,8 +4,10 @@ import { PublicFile } from "./files.d";
 
 const getPublicFileInfo = async (): Promise<AxiosResponse<PublicFile>> => 
 {
-  const response = await request.post("/public/file");
-  return response; // 这里应该返回完整的响应对象，而不是 response.data
+  console.log("ready for request");
+  const response = await request.post("v1/files/query");
+  console.log("requets!!!")
+  return response; 
 };
 
 export {

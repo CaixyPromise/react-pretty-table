@@ -1,6 +1,7 @@
-import { Reducer, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 // import { request } from "@/utils/requests";
 import { getPublicFileInfo } from "@/apis/modules/file/files";
+import type { AppDispatch, RootState } from '../index.d';
 
 const table = createSlice(
 {
@@ -22,24 +23,22 @@ const table = createSlice(
         {
             state.data = action.payload;
         }
-
-        
     }
 })
 
 const { set_data: set_FileList } = table.actions;
 
-const fetchDataList = () => 
+const fetchDataList = () => async (dispatch: AppDispatch, getState:RootState) => 
 {
-    return async (dispatch: any) => 
-    {
-        try {
-            dispatch(set_FileList(await getPublicFileInfo()));
-        }
-        catch (error) {
-            console.log('something wrong when fetch data from server');
-            return Promise.reject(error);
-        }
+    try {
+        const fileInfo = await getPublicFileInfo();
+        dispatch(set_FileList(fileInfo.data));
+        console.log("request successful!!");
+        return true;
+    }
+    catch (error) {
+        console.log('something wrong when fetch data from server');
+        return error;
     }
 }
 
