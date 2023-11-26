@@ -276,12 +276,14 @@
 			background-color: rgba(255, 255, 255, 0.6) !important;
 		}
 
-		& .button {
+		& .button 
+		{
 			display: inline-block;
 			padding: 8px 10px;
 			border-radius: 14px;
 			text-align: center;
 			cursor: pointer;
+			min-width: 100px;
 			font-weight: 600;
 			transition: background-color 0.3s ease;
 			background: linear-gradient(45deg, #84fab0 30%, #8fd3f4 90%);

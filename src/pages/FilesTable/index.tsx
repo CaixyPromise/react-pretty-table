@@ -6,6 +6,7 @@ import { TableStruct, RowData, searchColumnsType,
   GenericEventHandler, CustomCallbackFunction } from '@/components/Table/index.d';
 import { useDispatch, useSelector } from 'react-redux'
 import {fetchDataList} from "@/stores/modules/file"
+import { set_LoadingState } from "@/stores/modules/file"
 // 用户数据示例
 
 const UserList: React.FC = () => 
@@ -18,6 +19,7 @@ const UserList: React.FC = () =>
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
+      dispatch<any>(set_LoadingState(true));
       console.log("get data");
       try {
         await dispatch<any>(fetchDataList());
@@ -28,22 +30,47 @@ const UserList: React.FC = () =>
       }
       console.log("get data end");
       setIsLoading(false);
+      dispatch<any>(set_LoadingState(false));
+
     };
 
     loadData();
   }, [dispatch]);
-  
-    const columns: ColumnData[] = [
-        { label: 'ID', key: 'id' },
-        { label: 'Username', key: 'username' },
-        { label: 'Location', key: 'location' },
-        { label: 'Last Contact Date', key: 'lastContactDate' },
-        { label: 'Action', key: 'action' },
-    ];
+
+    const List = useSelector((state: any) => state.table.data);
+    console.log("List: ", List)
 
     
+    const transformedList = List.map((item: { [x: string]: any; }) => {
+      let row: any[] = [];
+      Object.keys(item).forEach(key => {
+          let column:any = { key, data: item[key] };
+
+          if (key === "targetUrl") {
+              column.actions = [{ type: "button", content: "下载", onClick: () => console.log(item[key]) }];
+              column.data = "下载"; // 如果需要保留原始数据，可以注释掉这行
+          }
+          
+          row.push(column);
+      });
+      return row;
+    });
+
+    console.log("transformedList: ", transformedList);
+
+  
+    const columns: ColumnData[] = [
+        { label: '文件ID', key: 'fileId' },
+        { label: '文件名', key: 'fileName' },
+        { label: '文件类型', key: 'fileType' },
+        { label: '文件大小', key: 'fileSize' },
+        { label: '上传日期', key: 'createTime' },
+        { label: '下载链接', key: 'targetUrl' },
+
+    ];
+
     // 发送消息的函数
-    const sendMessage:GenericEventHandler<HTMLElement>
+    const sendMessage: GenericEventHandler<HTMLElement>
        = (event: CustomCallbackFunction): void  => 
     {
         console.log(event.currentTarget)
@@ -196,7 +223,7 @@ const UserList: React.FC = () =>
         ],
 
       ];
-      const userTable = new TableStruct(rowData, columns, "User Table");
+      const userTable = new TableStruct(transformedList, columns, "User Table");
 
 
       

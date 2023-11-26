@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom"
-import { UserList } from "@/pages/Table"
+import { UserList } from "@/pages/FilesTable"
 
 const router = createBrowserRouter([
     {
