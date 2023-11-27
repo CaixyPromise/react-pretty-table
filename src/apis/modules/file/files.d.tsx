@@ -14,6 +14,17 @@ interface PublicFile {
     row_data : RowData[]
 }
 
+interface TableState {
+    data: PublicFile[];
+    currentPage: number;
+    pageSize: number;
+    totalItems: number;
+    isLoading: boolean;
+    tableError: string | null;
+    indexSet : number[]
+}
+
 export type{
-    PublicFile
+    PublicFile,
+    TableState
 }

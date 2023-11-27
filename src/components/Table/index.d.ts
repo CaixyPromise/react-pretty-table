@@ -34,12 +34,16 @@ export class TableStruct<T>
   private columns: ColumnData[];
   private rowsData: RowData<T>[];
 
-  constructor(rowsData: RowData<T>[], columns: ColumnData[], headerName: string) 
+  constructor(rowsData: RowData<T>[], 
+              columns: ColumnData[], 
+              headerName: string,
+              ) 
   {
     this.columns = columns;
     this.rowsData = rowsData;
     this.headerName = headerName;
   }
+
 
   getRowsData(): RowData<T>[] {
     return this.rowsData;
